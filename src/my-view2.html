@@ -21,17 +21,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <firebase-query
+      app-name="popping-fire-2920"
+      path="/demo1/characters"
+      data="{{characters}}">
+    </firebase-query>
+
     <div class="card">
       <div class="circle">2</div>
       <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <ul>
+        <template is="dom-repeat" items="[[characters]]" index-as="index">
+          <li>{{item.name}}
+        </template>
+      </ul>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'my-view2'
+      is: 'my-view2',
+      properties: {
+        characters: {
+          type: Array,
+          notify: true
+        }
+      }
     });
   </script>
 </dom-module>

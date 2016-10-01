@@ -21,17 +21,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <firebase-document
+      app-name="popping-fire-2920"
+      path="demo1/details"
+      data="{{details}}">
+    </firebase-document>
+
     <div class="card">
       <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>Details</h1>
+      <paper-input label="Title" value="{{details.title}}" disabled></paper-input>
+      <paper-input label="Director" value="{{details.director}}" disabled></paper-input>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'my-view1'
+      is: 'my-view1',
+      properties: {
+        details: {
+          type: Object,
+          notify: true
+        }
+      }
     });
   </script>
 </dom-module>

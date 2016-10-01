@@ -17,9 +17,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
 <link rel="import" href="my-icons.html">
 
 <dom-module id="my-app">
@@ -63,6 +73,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <firebase-app
+      name="popping-fire-2920"
+      app="{{app}}"
+      auth-domain="popping-fire-2920.firebaseapp.com"
+      database-url="https://popping-fire-2920.firebaseio.com"
+      api-key="AIzaSyBN1kmKeYdeKzAsgVXV8yXJg54-UFO7vtk">
+    </firebase-app>
+
+    <firebase-auth
+      id="auth"
+      app-name="popping-fire-2920"
+      auth-domain="popping-fire-2920.firebaseapp.com"
+      user="{{user}}"
+      status-known="{{statusKnown}}"
+      provider="google"
+      on-error="_authOnError">
+    </firebase-auth>
+
+
+
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -73,7 +103,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer>
-        <app-toolbar>Menu</app-toolbar>
+        <app-toolbar>
+          Menu
+        </app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">View One</a>
           <a name="view2" href="/view2">View Two</a>
@@ -88,6 +120,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title>My App</div>
+            <paper-button raised on-tap="_login">Login</paper-button>
           </app-toolbar>
         </app-header>
 
@@ -96,9 +129,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
+          <my-view1 name="view1">
+          </my-view1>
+          <my-view2 name="view2">
+          </my-view2>
+          <my-view3 name="view3">
+            <span>Status:{{statusKnown}}</span>
+            <span>User:{{user.uid}}</span>
+            <!-- <span>Title:{{details.title}}</span> -->
+            <ul>
+              <li>-----</li>
+              <template is="dom-repeat" items="[[characters]]" index-as="index">
+                <li>{{item.name}}
+              </template>
+              <li>-----</li>
+            </ul>
+          </my-view3>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -114,12 +160,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
+        },
+        user: {
+          type: Object,
+          notify: true
+        },
+        details: {
+          type: Object,
+          notify: true
+        },
+        characters: {
+          type:Array,
+          value:[{name:"aaaa"}],
+          notify:true
+        },
+        statusKnown: {
+          type: Boolean,
+          value: false,
+          notify: true
         }
       },
 
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_routePageChanged(routeData.page)',
+        //'_debug(details)'
       ],
+
+      _debug: function(object) {
+        console.log(object);
+      },
+
+      _login: function() {
+        this.$.auth.signInWithPopup();
+      },
+
+      _authOnError: function(error) {
+        console.log(error);
+      },
 
       _routePageChanged: function(page) {
         this.page = page || 'view1';

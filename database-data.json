@@ -1,0 +1,34 @@
+{
+  "details": {
+    "director": "Firefly",
+    "title": "Joss Whedon"
+  },
+  "characters": [{
+      "name": "Malcolm 'Mal' Raynolds",
+      "actor": "Nathan Fillion"
+  }, {
+      "name": "Zoe Washburne",
+      "actor": "Gina Torres"
+  }, {
+      "name": "Alan Tudyk",
+      "actor": "Hoban 'Wash' Washburne"
+  }, {
+      "name": "Jayne Cobb",
+      "actor": "Adam Baldwin"
+  }, {
+      "name": "Inara Serra",
+      "actor": "Morena Baccarin"
+  }, {
+      "name": "Kaylee Frye",
+      "actor": "Jewel Staite"
+  }, {
+      "name": "River Tam",
+      "actor": "Summer Glau"
+  }, {
+      "name": "Dr. Simon Tam",
+      "actor": "Sean Maher"
+  }, {
+      "name": "Shepherd Book",
+      "actor": "Ron Glass"
+  }]
+}

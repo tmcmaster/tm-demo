@@ -105,6 +105,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
   </head>
   <body>
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  try {
+    var config = {
+      apiKey: "AIzaSyDV0zcbcWvpPTTAteInFK7iLVPSaER5NPQ",
+      authDomain: "incandescent-heat-8795.firebaseapp.com",
+      databaseURL: "https://incandescent-heat-8795.firebaseio.com",
+      storageBucket: "incandescent-heat-8795.appspot.com",
+      messagingSenderId: "500709393366"
+    };
+    firebase.initializeApp(config);
+  } catch (e) {
+      console.log(e);
+  } finally {
+    console.log('Success');
+  }
+</script>
     <my-app></my-app>
     <!-- Built with love using Polymer Starter Kit -->
   </body>
